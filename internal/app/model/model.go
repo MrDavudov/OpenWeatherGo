@@ -6,19 +6,20 @@ import (
 )
 
 type Weather struct {
-	Name     string
-	Lat      float64
-	Lon      float64
-	Country  string
-	DataTemp []DtTemp
+	ID		int
+	Name    string
+	Lat     float64
+	Lon     float64
+	Country string
+	DtTemp	[]DtTemp
 }
 
 type DtTemp struct {
-	dt   string
-	temp float64
+	Dt   string
+	Temp float64
 }
 
-func JsonSave(m *Weather) error {
+func (m *Weather) JsonSave(*Weather) error {
 	const jsonFile = "./db.json"
 
 	type city struct {
@@ -72,6 +73,8 @@ func JsonSave(m *Weather) error {
 		lon: m.Lon,
 		country: m.Country,
 	})
+
+	m.ID = len(setting) + 1
 
 	return nil
 }
